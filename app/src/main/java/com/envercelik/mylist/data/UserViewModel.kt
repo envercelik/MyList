@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
  */
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
-    private val getAllUser: LiveData<List<User>>
+    val getAllUser: LiveData<List<User>>
     private val repository: UserRepository
 
     //always first executed when UserViewModel is called.
