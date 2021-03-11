@@ -1,9 +1,12 @@
-package com.envercelik.mylist.data
+package com.envercelik.mylist.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.envercelik.mylist.data.UserDatabase
+import com.envercelik.mylist.repository.UserRepository
+import com.envercelik.mylist.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,6 +31,14 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     fun addUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
+        }
+    }
+
+
+    //update user with coroutine inside the background thread.
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateUser(user)
         }
     }
 

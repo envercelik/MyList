@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.envercelik.mylist.model.User
 
 /**
  * Contains the database holder and serves as the main access point for the underlying

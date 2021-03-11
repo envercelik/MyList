@@ -3,9 +3,10 @@ package com.envercelik.mylist.fragments.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.envercelik.mylist.R
-import com.envercelik.mylist.data.User
+import com.envercelik.mylist.model.User
 import kotlinx.android.synthetic.main.layout_user_item.view.*
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
@@ -30,6 +31,13 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.text_view_first_name.text = currentUser.firstName
         holder.itemView.text_view_last_name.text = currentUser.lastName
         holder.itemView.text_view_age.text = currentUser.age.toString()
+
+        holder.itemView.layout_user_row.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentUser)
+            holder.itemView.findNavController().navigate(action)
+        }
+
+
     }
 
 

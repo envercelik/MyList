@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.envercelik.mylist.R
-import com.envercelik.mylist.data.User
-import com.envercelik.mylist.data.UserViewModel
+import com.envercelik.mylist.model.User
+import com.envercelik.mylist.viewmodel.UserViewModel
 import com.envercelik.mylist.databinding.FragmentAddBinding
 
 
@@ -42,9 +42,9 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDataToDatabase() {
-        val firstName = binding.editTextFirstName.text.toString()
-        val lastName = binding.editTextLastName.text.toString()
-        val age = binding.editTextAge.text
+        val firstName = binding.editTextAddFirstName.text.toString()
+        val lastName = binding.editTextAddLastName.text.toString()
+        val age = binding.editTextAddAge.text
 
         print("test")
 

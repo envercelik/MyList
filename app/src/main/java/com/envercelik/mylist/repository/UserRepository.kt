@@ -1,6 +1,8 @@
-package com.envercelik.mylist.data
+package com.envercelik.mylist.repository
 
 import androidx.lifecycle.LiveData
+import com.envercelik.mylist.data.UserDao
+import com.envercelik.mylist.model.User
 
 /**
  * That class abstracts access to multiple data sources
@@ -11,5 +13,9 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun addUser(user: User) {
         userDao.addUser(user)
+    }
+
+    suspend fun updateUser(user: User) {
+        userDao.updateUser(user)
     }
 }
