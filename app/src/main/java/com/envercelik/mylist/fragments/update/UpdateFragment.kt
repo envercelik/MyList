@@ -1,16 +1,13 @@
 package com.envercelik.mylist.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.envercelik.mylist.R
@@ -24,7 +21,6 @@ class UpdateFragment : Fragment() {
     private val args by navArgs<UpdateFragmentArgs>()
     private lateinit var layoutUpdate: View
     private lateinit var mUserViewModel : UserViewModel
-
 
 
 
@@ -45,6 +41,9 @@ class UpdateFragment : Fragment() {
             updateUser()
         }
 
+
+        //this will say that we need to add our menu at our action bar.
+        setHasOptionsMenu(true)
 
         return layoutUpdate
     }
@@ -72,6 +71,41 @@ class UpdateFragment : Fragment() {
 
     private fun inputValidation(firstName:String, lastName:String, age: Editable): Boolean {
         return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.delete_menu,menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.delete) {
+            deleteUser()
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
+
+    private fun deleteUser() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setPositiveButton("yes") {_,_ ->
+            mUserViewModel.deleteUser(args.currentUser)
+            Toast.makeText(requireContext(),"Successfully removed: ${args.currentUser.firstName}",Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+
+        builder.setNegativeButton("no") {_,_ ->}
+
+        builder.setTitle("Delete ${args.currentUser.firstName} ?")
+        builder.setMessage("Are you sure you want to delete ${args.currentUser.firstName}")
+        builder.create().show()
+
     }
 
 

@@ -42,4 +42,20 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+
+    //delete user with coroutine inside the background thread.
+    fun deleteUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUser(user)
+        }
+    }
+
+
+    //delete all user with coroutine inside the background thread.
+    fun deleteAllUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAllUser()
+        }
+    }
+
 }

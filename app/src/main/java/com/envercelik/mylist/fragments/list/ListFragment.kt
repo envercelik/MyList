@@ -1,10 +1,10 @@
 package com.envercelik.mylist.fragments.list
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -46,8 +46,44 @@ class ListFragment : Fragment() {
         }
 
 
+        setHasOptionsMenu(true)
+
         return view
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.delete_menu,menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.delete) {
+            deleteAllUser()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun deleteAllUser() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setPositiveButton("yes") {_,_ ->
+            mUserViewModel.deleteAllUser()
+            Toast.makeText(requireContext(),"All user successfully removed",
+                Toast.LENGTH_LONG).show()
+        }
+
+        builder.setNegativeButton("no") {_,_ ->}
+
+        builder.setTitle("Delete All user ?")
+        builder.setMessage("Are you sure you want to delete all user")
+        builder.create().show()
+
+    }
+
+
+
 
 
 }
